@@ -21,8 +21,7 @@ class UsersController extends AppController
     public function index()
     {
 
-        debug($this->request->session()->read('Auth'));
-        die();
+        
         $users = $this->paginate($this->Users);
 
         $this->set(compact('users'));
@@ -54,10 +53,21 @@ class UsersController extends AppController
         $user = $this->Users->newEntity();
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
+            
+                    
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
+                $id = $this
+                    ->Users
+                    ->find()
+                    ->select(['id'])
+                    ->where(['email =' => $this->request->data['email']])->first();
+                return $this->redirect(['controller' => 'clients','action'=>'add',
+                    '?'=>[
+                        'users_id'=>$id['id'],
+                        'name'=>$this->request->data['name']
+                    ]
+                ]);
             }
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
@@ -109,7 +119,9 @@ class UsersController extends AppController
     }
     public function login(){
         if ($this->request->is('post')) {
+        
             $user = $this->Auth->identify();
+
             if ($user) {
                 $this->Auth->setUser($user);
                 return $this->redirect(['controller'=>'users','action'=>'index']);
@@ -119,7 +131,10 @@ class UsersController extends AppController
 
     }
 
-
+    public function logout(){
+        $this->Flash->success('Vous êtes maintenant déconnecté.');
+        return $this->redirect($this->Auth->logout());
+    }
     public function initialize(){
     parent::initialize();
     // Ajoute logout à la liste des actions autorisées.

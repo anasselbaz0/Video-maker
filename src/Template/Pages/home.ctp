@@ -33,6 +33,7 @@
     <link href='https://fonts.googleapis.com/css?family=Cabin' rel='stylesheet' type='text/css'>
     <!-- Pacifico for Logo   -->
     <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+    
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -55,15 +56,20 @@
 </div>
   <div class="nav-area">    
     <a id="menu-btn" href="#"><i class="fa fa-bars"></i></a>
+
     <nav class="main-nav" id="main-menu">
+
       <span class="fa fa-remove" id="close"></span>
       <ul>  
-        <li> <a href="#header"><i class="fa fa-home" aria-hidden="true"></i></i><span>Home</span></a></li>
+        <li>
+          <!-- <?= $this->Html->link('Login', '/users/login') ?> -->
+          <a href="" data-toggle="modal" data-target="#modal1"><i class="fa fa-user"></i><span>Login</span></a></li>
+        <li><a href="" data-toggle="modal" data-target="#modal2"><i class="fa fa-registered"></i><span>Register</span></a></li>
+        <li><a href="#header"><i class="fa fa-home" aria-hidden="true"></i></i><span>Home</span></a></li>
         <li><a href="#features"><i class="fa fa-server"></i><span>Services</span></a></li>
         <li><a href="#howit-works"><i class="fa fa-hourglass"></i><span>How it Works</span></a></li>
-        <li><a href="#pricing-table"><i class="fa fa-usd"></i><span>Pricing</span></a></li>
         <li><a href="#download-app"><i class="fa fa-download"></i><span>Download</span></a></li>
-         <li><a href="#testimonial"><i class="fa fa-certificate"></i><span>Testimonials</span></a></li>
+        <li><a href="#testimonial"><i class="fa fa-certificate"></i><span>Testimonials</span></a></li>
         <li><a href="#contact"><i class="fa fa-envelope-o"></i><span>Contact</span></a></li>  
       </ul>      
     </nav>
@@ -84,7 +90,7 @@
     <div class="header-inner">
       <!-- Header image -->
 
-         <video autoplay muted loop id="myVideo" style="height: 630px;">
+         <video autoplay muted loop id="myVideo" style="height: 100%;">
               <source src="web.mp4" type="video/mp4">
             </video>
 
@@ -250,90 +256,7 @@
   <!-- End how it works -->
 
   <!-- start pricing table -->
-  <section id="pricing-table">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="title-area wow fadeInLeft">
-            <h2 class="title">Pricing <span>Table</span></h2>
-            
-          </div>
-        </div>
-        <div class="col-md-12">
-          <div class="pricing-table-content">
-            <div class="row">
-              <!-- Start single plan -->
-
-              <div class="col-md-3 col-sm-6">                    
-                <div class="single-plan wow fadeInUp" data-wow-duration="0.25s" data-wow-delay="0.25s">
-                  <div class="single-plan-head">
-                    <h5>Free</h5>
-                  </div>
-                  <div class="single-plan-content">
-                    <ul><li>Try it <span>for free</span></ul></li>
-                  </div>
-                  <div class="single-plan-bottom">
-                    <a class="signup-btn" href="">Start Now</a>
-                  </div>
-                </div>
-              </div>
-
-              <!-- End single plan -->
-              <!-- Start single plan -->
-
-              <div class="col-md-3 col-sm-6">                    
-                <div class="single-plan wow fadeInUp" data-wow-duration="0.5s" data-wow-delay="0.5s">
-                  <div class="single-plan-head">
-                    <h5>Weekly</h5>
-                  </div>
-                  <div class="single-plan-content">
-                    <ul><li>20$ <span>per week</span></ul></li>
-                  </div>
-                  <div class="single-plan-bottom">
-                    <a class="signup-btn" href="">Buy Now</a>
-                  </div>
-                </div>
-              </div>
-              <!-- End single plan -->
-              <!-- Start single plan -->
-              <div class="col-md-3 col-sm-6">
-                <div class="single-plan wow fadeInUp" data-wow-duration="0.75s" data-wow-delay="0.75s">
-                  <div class="single-plan-head">
-                    <h5>Monthly</h5>
-                  </div>
-                  <div class="single-plan-content">
-                    <ul>
-                      <li>80$ <span>per month</span></li></ul>
-                  </div>
-                  <div class="single-plan-bottom">
-                    <a class="signup-btn" href="">Buy Now</a>
-                  </div>
-                </div>
-              </div>
-              <!-- End single plan -->
-              <!-- Start single plan -->
-              <div class="col-md-3 col-sm-6">
-                <div class="single-plan feature-price wow fadeInUp" data-wow-duration="1s" data-wow-delay="1s">
-                  <div class="single-plan-head">
-                    <h5>Yearly</h5>
-      
-                  </div>
-                  <div class="single-plan-content">
-                    <ul>
-                      <li>900$ <span>per year</span></li></ul>
-                  </div>
-                  <div class="single-plan-bottom">
-                    <a class="signup-btn" href="">Buy Now</a>
-                  </div>
-                </div>
-              </div>
-              <!-- End single plan -->
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  
   <!-- End pricing table -->
 
   <!-- Start download app -->
@@ -519,6 +442,52 @@
   </footer>
   <!-- End -->
 
+ <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="container" style="width: 100%; margin-top: 10%">
+  
+    <div class="login-container" style="width: 50%;">
+        <!-- <div id="output"></div> -->
+     
+        <div class="form-box">
+            <?= $this->Form->create(null,['url'=>['controller'=>'users','action'=>'login']]) ?>
+        <fieldset style="margin-bottom: 20px;">
+            <legend><?= __('LOGIN') ?></legend>
+            
+              
+          <?= $this->Form->control('email') ?>
+          <?= $this->Form->control('password') ?>
+            
+        </fieldset>
+        <?= $this->Form->button(__('Submit'), ['class'=>'btn btn-primary']) ?>
+        <?= $this->Form->end() ?>
+        </div>
+    </div>
+</div>
+    </div>
+
+<div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="container" style="width: 100%; margin-top: 10%">
+  
+    <div class="login-container" style="width: 50%;">
+        <!-- <div id="output"></div> -->
+     
+        <div class="form-box">
+            <?= $this->Form->create(null,['url'=>['controller'=>'users','action'=>'add']]) ?>
+        <fieldset style="margin-bottom: 20px;">
+            <legend><?= __('Register') ?></legend>
+            
+              
+          <?= $this->Form->control('email') ?>
+          <?= $this->Form->control('password') ?>
+          <?= $this->Form->control('name') ?>
+            
+        </fieldset>
+        <?= $this->Form->button(__('Submit'), ['class'=>'btn btn-primary']) ?>
+        <?= $this->Form->end() ?>
+        </div>
+    </div>
+</div>
+    </div>
 
   <!-- jQuery library -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>    
