@@ -57,6 +57,11 @@ class UsersTable extends Table
             ->email('email')
             ->allowEmpty('email');
 
+        $validator
+            ->scalar('type')
+            ->maxLength('type', 45)
+            ->allowEmpty('type');
+
         return $validator;
     }
 

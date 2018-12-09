@@ -18,14 +18,33 @@ class ClientsController extends AppController
      *
      * @return \Cake\Http\Response|void
      */
-    public function index()
+    public function profil()
     {
         $this->paginate = [
             'contain' => ['Users']
         ];
         $clients = $this->paginate($this->Clients);
 
-        $this->set(compact('clients'));
+        foreach ($clients as $client) {
+            if ($client->id == $this->request->session()->read('Auth.User.id')) {
+                $me = $client;
+            }
+        }
+        // hta l hna khddam
+
+
+        $this->loadModel('ClientFolders');
+        $allFolders =  $this->paginate($this->ClientFolders);
+        debug($allFolders);
+        // $myFolders = array();
+        // foreach ($allFolders as $folder) {
+        //     if ($folder->clients_id == $me->id) {
+        //         $myFolders[] = $folder;
+        //     }
+        // }     
+        // debug($myFolders);   
+
+        $this->set(compact('me'));
     }
 
     /**
@@ -49,18 +68,29 @@ class ClientsController extends AppController
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function add()
-    {   
+    public function register()
+    {
         $client = $this->Clients->newEntity();
-        $this->request->data['name']=$this->request->query['name'];
-        $this->request->data['users_id']=$this->request->query['users_id'];
-        $client = $this->Clients->patchEntity($client, $this->request->getData());
-        if ($this->Clients->save($client)) {
-            $this->Flash->success(__('The client has been saved.'));
-            return $this->redirect(['action' => 'paiement']);
-        }
-        $this->Flash->error(__('The client could not be saved. Please, try again.'));
-        
+        // debug($this->request->query['client_data']);die();
+        $client['name'] = $this->request->query['client_data']['name'];
+        $client['users_id'] = $this->request->query['client_data']['users_id'];
+        $client['start_abonement'] = $this->request->query['client_data']['start_abonement'];
+        $client['duration_abonement'] = $this->request->query['client_data']['duration_abonement'];
+        // // if ($this->request->is('post')) {
+            $client = $this->Clients->patchEntity($client, $this->request->getData());
+            if ($this->Clients->save($client)) {
+                $dossier = 'folders/'.$client['name'];
+                if(!is_dir($dossier)){
+                   if (mkdir($dossier, 0777, true)) {
+                       echo 'yey';
+                   } else echo 'nop';
+                }
+                $this->Flash->success(__('The client has been saved.'));
+
+                return $this->redirect(['controller' => 'Pages', 'action' => 'display', 'home']);
+            }
+            $this->Flash->error(__('The client could not be saved. Please, try again.'));
+        // }
         $users = $this->Clients->Users->find('list', ['limit' => 200]);
         $this->set(compact('client', 'users'));
     }
@@ -108,13 +138,5 @@ class ClientsController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
-    }
-
-    public function paiement(){
-
-    }
-    public function initialize(){
-    parent::initialize();
-    $this->Auth->allow(['paiement', 'add']);
     }
 }

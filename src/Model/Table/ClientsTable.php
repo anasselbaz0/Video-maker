@@ -65,7 +65,7 @@ class ClientsTable extends Table
             ->allowEmpty('start_abonement');
 
         $validator
-            ->dateTime('duration_abonement')
+            ->integer('duration_abonement')
             ->allowEmpty('duration_abonement');
 
         return $validator;

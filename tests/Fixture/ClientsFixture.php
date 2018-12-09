@@ -21,7 +21,7 @@ class ClientsFixture extends TestFixture
         'name' => ['type' => 'string', 'length' => 45, 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         'users_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'start_abonement' => ['type' => 'datetime', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
-        'duration_abonement' => ['type' => 'datetime', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
+        'duration_abonement' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         '_indexes' => [
             'fk_admins_users10' => ['type' => 'index', 'columns' => ['users_id'], 'length' => []],
         ],
@@ -48,8 +48,8 @@ class ClientsFixture extends TestFixture
                 'id' => 1,
                 'name' => 'Lorem ipsum dolor sit amet',
                 'users_id' => 1,
-                'start_abonement' => '2018-12-09 13:09:43',
-                'duration_abonement' => '2018-12-09 13:09:43'
+                'start_abonement' => '2018-12-09 22:27:15',
+                'duration_abonement' => 1
             ],
         ];
         parent::init();

@@ -48,28 +48,31 @@ class UsersController extends AppController
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function register()
     {
         $user = $this->Users->newEntity();
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
-            
-                    
+            $user['type']='client';
             if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
+                // $this->Flash->success(__('YOU ARE REGISTERED!'));
                 $id = $this
                     ->Users
                     ->find()
                     ->select(['id'])
                     ->where(['email =' => $this->request->data['email']])->first();
-                return $this->redirect(['controller' => 'clients','action'=>'add',
-                    '?'=>[
+                return $this->redirect([
+                    'controller' => 'clients',
+                    'action'=>'register',
+                    'client_data'=>[
                         'users_id'=>$id['id'],
-                        'name'=>$this->request->data['name']
+                        'name'=>$this->request->data['name'],
+                        'start_abonement'=>date("Y-m-d H:i:s"),
+                        'duration_abonement'=>'0'
                     ]
                 ]);
             }
-            $this->Flash->error(__('The user could not be saved. Please, try again.'));
+            // $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
         $this->set(compact('user'));
     }
@@ -117,28 +120,32 @@ class UsersController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+    
+
     public function login(){
         if ($this->request->is('post')) {
-        
             $user = $this->Auth->identify();
-
             if ($user) {
                 $this->Auth->setUser($user);
-                return $this->redirect(['controller'=>'users','action'=>'index']);
+                if ($user['type'] == 'client') {
+                    return $this->redirect(['controller'=>'clients','action'=>'profil']);
+                } else {
+                    return $this->redirect(['controller'=>'admins','action'=>'profil']);
+                }
             }
             $this->Flash->error('Votre username ou mot de passe est incorrect.');
+            //return $this->redirect(['controller'=>'Pages','action'=>'display', 'home']);
         }
-
     }
 
     public function logout(){
         $this->Flash->success('Vous êtes maintenant déconnecté.');
         return $this->redirect($this->Auth->logout());
     }
+
     public function initialize(){
     parent::initialize();
-    // Ajoute logout à la liste des actions autorisées.
-    $this->Auth->allow(['logout', 'add']);
+    
     }
 
 }
