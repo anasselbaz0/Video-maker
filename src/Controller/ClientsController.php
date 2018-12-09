@@ -34,17 +34,9 @@ class ClientsController extends AppController
 
 
         $this->loadModel('ClientFolders');
-        $allFolders =  $this->paginate($this->ClientFolders);
-        debug($allFolders);
-        // $myFolders = array();
-        // foreach ($allFolders as $folder) {
-        //     if ($folder->clients_id == $me->id) {
-        //         $myFolders[] = $folder;
-        //     }
-        // }     
-        // debug($myFolders);   
+        $allFolders =  $this->ClientFolders->find('all')->where(['clients_id'=>$me->id]);
+        $this->set(compact('me', 'allFolders'));
 
-        $this->set(compact('me'));
     }
 
     /**

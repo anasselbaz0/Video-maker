@@ -62,9 +62,12 @@
                     <h4>MY VIDEOS</h4>
                 </div>
                 <table style="width: 60%; border-radius: 10px; margin: 10px auto;">
-                    <tr>
-                        <td></td>
-                    </tr>
+                    <?php foreach ($allFolders as $folder) { ?>
+                        <tr>
+                            <td>Title</td>
+                            <td><?php echo $folder->title ?></td>
+                        </tr>
+                    <?php } ?>
                 </table>
             </div>
         </div>
