@@ -51,13 +51,16 @@ class ClientFoldersController extends AppController
      */
     public function add()
     {
+        
         $clientFolder = $this->ClientFolders->newEntity();
         if ($this->request->is('post')) {
-            // debug($this->request); die();
-            // $clientFolder = $this->ClientFolders->patchEntity($clientFolder, $this->request->getData());
-            // debug($clientFolder); die();
-            $clientFolder['clients_id'] = $this->request->session()->read('Auth.User.id');
-            $clientFolder['title'] = $this->request->data['title'];
+            $clientFolder = $this->ClientFolders->patchEntity($clientFolder, $this->request->getData());
+            $this->loadModel('Clients');
+            $clientFolder['clients_id'] = $this->Clients
+                ->find()
+                ->select(['id'])
+                ->where(['users_id =' => $this->request->session()->read('Auth.User.id')])
+                ->first()['id'];
             if ($this->ClientFolders->save($clientFolder)) {
                 $this->loadModel('Clients');
                 $client_name = $this->Clients
@@ -66,15 +69,12 @@ class ClientFoldersController extends AppController
                     ->where(['users_id =' => $this->request->session()->read('Auth.User.id')])
                     ->first();
                 $dossier = 'folders/'.$client_name['name'].'/'.$clientFolder['title'];
-                 // echo $dossier; die();
                 if(!is_dir($dossier)){
                    if (mkdir($dossier, 0777, true)) {
                        echo 'yey';
                    } else echo 'nop';
                 }
-                $this->Flash->success(__('The client folder has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'workspace']);
             }
             $this->Flash->error(__('The client folder could not be saved. Please, try again.'));
         }
@@ -126,4 +126,26 @@ class ClientFoldersController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function workspace($id = null)
+    {
+        $this->loadModel('Clients');
+        $client = $this->Clients
+            ->find()
+            ->where(['users_id'=>$this->request->session()->read('Auth.User.id')])
+            ->first(); 
+        $clientFolder = $this->ClientFolders
+            ->find()
+            ->where(['clients_id'=>$client->id])
+            ->first();
+        $this->loadModel('ClientImages');
+        $images = $this->ClientImages
+            ->find()
+            ->where(['client_folders_id =' => $clientFolder->id]);
+        
+        $this->set(compact('images'));
+    }
+
 }
+
+

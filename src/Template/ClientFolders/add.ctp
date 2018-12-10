@@ -16,7 +16,6 @@
                     <span class="input-group-text" id="inputGroup-sizing-lg">Title of video</span>
                   </div>
                     <input name="title" type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
-                    <input type="hidden" name="clients_id" value="1">
                 </div>
             </div>
             <div class="box">

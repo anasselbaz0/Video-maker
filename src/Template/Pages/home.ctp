@@ -148,7 +148,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Video Maker : Home</title>
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/icon" href="assets/images/logo.png"/>
+    <link rel="shortcut icon" type="image/icon" href="img/logo.png"/>
     <!-- Font Awesome -->
     <link href="assets/css/font-awesome.css" rel="stylesheet">
     <!-- Bootstrap -->
@@ -242,7 +242,7 @@
                   <!-- Start logo area -->
                   <div class="logo-area">
                     <!-- Image based logo -->
-                    <a class="logo" href="index.html"><img src="assets/images/logo.png" alt="logo"></a>
+                    <a class="logo" href="index.html"><img src="img/logo.png" alt="logo"></a>
                     <!-- Text based logo -->
                     <!-- <a class="logo" href="index.html">App Landy.</a> -->
                   </div>

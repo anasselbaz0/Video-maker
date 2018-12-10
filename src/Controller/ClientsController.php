@@ -25,17 +25,21 @@ class ClientsController extends AppController
         ];
         $clients = $this->paginate($this->Clients);
 
+        
+
         foreach ($clients as $client) {
-            if ($client->id == $this->request->session()->read('Auth.User.id')) {
-                $me = $client;
+            if ($client->users_id == $this->request->session()->read('Auth.User.id')) {
+                $meClient = $client;
             }
         }
-        // hta l hna khddam
-
-
+     
         $this->loadModel('ClientFolders');
-        $allFolders =  $this->ClientFolders->find('all')->where(['clients_id'=>$me->id]);
-        $this->set(compact('me', 'allFolders'));
+        $allFolders =  $this->ClientFolders->find('all')->where(['clients_id'=>$meClient->id]);
+
+        $this->loadModel('Users');
+        $meUser =  $this->Users->find()->where(['id'=>$this->request->session()->read('Auth.User.id')])->first();
+        
+        $this->set(compact('meUser', 'meClient', 'allFolders'));
 
     }
 

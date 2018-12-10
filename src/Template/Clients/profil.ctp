@@ -44,16 +44,23 @@
                 <div class="title">
                     <h4>PERSONAL INFORMATIONS</h4>
                 </div>
+                <?php echo $this->Html->link('Re-subscribe', '/users/paiment', ['class'=>'btn btn-warning']) ?>
                 <table style="width: 60%; border-radius: 10px; margin: 10px auto;">
                     <tr>
                         <td style="text-align: center;">Name</td>
-                        <td style="text-align: center;"><?php echo $me->name ?></td>
-                    </tr><tr>
+                        <td style="text-align: center;"><?php echo $meClient->name ?></td>
+                    </tr>
+                    <tr>
                         <td style="text-align: center;">E-mail</td>
-                        <td style="text-align: center;"><?php echo $me->name ?></td>
-                    </tr><tr>
-                        <td style="text-align: center;">Abonment</td>
-                        <td style="text-align: center;"><?php echo $me->name ?></td>
+                        <td style="text-align: center;"><?php echo $meUser->email ?></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">Start Abonment</td>
+                        <td style="text-align: center;"><?php echo $meClient->start_abonement ?></td>
+                    </tr> 
+                    <tr>
+                        <td style="text-align: center;">Duration Abonment</td>
+                        <td style="text-align: center;"><?php echo $meClient->duration_abonement ?></td>
                     </tr>
                 </table>
             </div>
@@ -61,11 +68,13 @@
                 <div class="title">
                     <h4>MY VIDEOS</h4>
                 </div>
+                <?php echo $this->Html->link('Add video', '/client-folders/add', ['class'=>'btn btn-warning']) ?>
                 <table style="width: 60%; border-radius: 10px; margin: 10px auto;">
                     <?php foreach ($allFolders as $folder) { ?>
                         <tr>
-                            <td>Title</td>
-                            <td><?php echo $folder->title ?></td>
+                            <td style="text-align: center;">Title</td>
+                            <td style="text-align: center;"><?php echo $folder->title ?></td>
+                            <td style="text-align: center;"><?= $this->Html->link('EDIT', '/client-folders/workspace/'.$folder->id, ['class'=>'btn btn-success']) ?></td>
                         </tr>
                     <?php } ?>
                 </table>
