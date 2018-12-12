@@ -74,7 +74,7 @@
                         <tr>
                             <td style="text-align: center;">Title</td>
                             <td style="text-align: center;"><?php echo $folder->title ?></td>
-                            <td style="text-align: center;"><?= $this->Html->link('EDIT', '/client-folders/workspace/'.$folder->id, ['class'=>'btn btn-success']) ?></td>
+                            <td style="text-align: center;"><?= $this->Html->link('EDIT', '/client-folders/workspace?$folder_id='.$folder->id) ?></td>
                         </tr>
                     <?php } ?>
                 </table>

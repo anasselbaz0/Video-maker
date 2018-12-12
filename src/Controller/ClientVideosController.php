@@ -52,7 +52,7 @@ class ClientVideosController extends AppController
     public function add()
     {
         // debug($this); die();
-        $clientVideo = $this->ClientImages->newEntity();
+        $clientVideo = $this->ClientVideos->newEntity();
         if ($this->request->is('post')) {
             // debug($this->request->data); die();
             if(!empty($this->request->data['path']['name'])){
@@ -69,32 +69,10 @@ class ClientVideosController extends AppController
                     ->first();
                 $uploadPath = 'folders/'.$client->name.'/'.$clientFolder->title.'/';
                 $uploadFile = $uploadPath.$fileName;
-                // // redimensionement
-                // $source = $uploadFile;
-                // $info=(pathinfo($source));
-                // debug($source); die();
-                // $dest=$info['dirname'].'/'.$info['filename'].'.'.$info['extension'];
-                // $size = getimagesize($source);
-                // if ($info['extension']=='jpg' || $info['extension'] =='jpeg')
-                // {
-                //     $imageRessource = imagecreatefromjpeg($source);
-                //     $imgFinal = imagecreatetruecolor (700, 700);
-                //     imagecopyresampled ($imgFinal,$imageRessource,0,0,0,0,700,700,$size[0],$size[1]);
-                //     $quality=100;
-                //     imagejpeg($imgFinal,$dest,$quality); 
-                // } elseif ($info['extension']=='png') {
-                //     $imageRessource = imagecreatefrompng($source);
-                //     $imgFinal = imagecreatetruecolor (700, 700);
-                //     imagecopyresampled ($imgFinal,$imageRessource,0,0,0,0,700,700,$size[0],$size[1]);
-                //     $quality=9;
-                //     imagepng($imgFinal,$dest,$quality); 
-                // }   
-
-
                 if(move_uploaded_file($this->request->data['path']['tmp_name'], $uploadFile)) {
-                    $clientImage->path = $this->request->webroot.$uploadFile;
-                    $clientImage->client_folders_id = $clientFolder->id;
-                    if ($this->ClientImages->save($clientImage)) {
+                    $clientVideo->path = $this->request->webroot.$uploadFile;
+                    $clientVideo->client_folders_id = $clientFolder->id;
+                    if ($this->ClientVideos->save($clientVideo)) {
                         $this->Flash->success(__('Ressource has been uploaded and inserted successfully.'));
                         return $this->redirect(['controller'=>'ClientFolders','action' => 'workspace']);
                     }else{
@@ -107,8 +85,8 @@ class ClientVideosController extends AppController
                 $this->Flash->error(__('Please choose a file to upload.'));
             }
         }
-        $clientFolders = $this->ClientImages->ClientFolders->find('list', ['limit' => 200]);
-        $this->set(compact('clientImage', 'clientFolders'));
+        $clientFolders = $this->ClientVideos->ClientFolders->find('list', ['limit' => 200]);
+        $this->set(compact('clientVideo', 'clientFolders'));
     }
 
     /**

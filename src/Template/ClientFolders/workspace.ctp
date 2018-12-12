@@ -228,14 +228,19 @@ ul
 
 <script type="text/javascript">
   function hello(p1){
-    var video = document.getElementById('principale')
-    var principale = document.querySelector('#principale source')
-    // video with effect
-    //var resultat = path dial video
-    console.log(p1)
-    principale.setAttribute('src','/video/video-sample/'+p1+'.mp4');
-    video.load();
-    video.play();
+    // var video = document.getElementById('principale')
+    var image = document.getElementById('imgpri')
+
+    // var principale = document.querySelector('#principale source')
+    // // video with effect
+    // //var resultat = path dial video
+    // console.log(p1)
+    // principale.setAttribute('src','/video/video-sample/'+p1+'.mp4');
+    image.setAttribute('src','/video/'+p1);
+    image.style.display= 'block';
+    // video.load();
+    // video.play();
+
   }
   function selected(p1){
     var nom = p1
@@ -292,7 +297,7 @@ ul
         <div class="contenu_onglet" id="contenu_onglet_quoi">
           <?php 
             foreach ($images as $image) { ?>
-              <img src=" <?php echo $image->path ?> ">
+              <img src=" <?php echo $image->path ?> " onclick="selected(<?php echo $image->path ?>)">
           <?php  }
           ?>
           <div class="but">
@@ -301,15 +306,25 @@ ul
           </div>
         </div>
         <div class="contenu_onglet" id="contenu_onglet_qui">
+          <?php 
+            foreach ($videos as $video) { ?>
+              <img src=" <?php echo $video->path ?> " onclick="selected(<?php echo $video->path ?>)">
+          <?php  }
+          ?>
           <div class="but">
             <?= $this->Html->link('PC', '/client-videos/add', ['class'=>'btn btn-warning']) ?>
             <?= $this->Html->link('URL', '/client-videos/addurl', ['class'=>'btn btn-warning']) ?>
           </div>
         </div>
         <div class="contenu_onglet" id="contenu_onglet_pourquoi">
+          <?php 
+            foreach ($musics as $music) { ?>
+              <img src=" <?php echo $music->path ?> " onclick="selected(<?php echo $music->path ?>)">
+          <?php  }
+          ?>
           <div class="but">
-            <button class="butt">Pc</button>
-            <button class="butt" data-toggle="modal" data-target="#myModal2">Youtube</button>
+            <?= $this->Html->link('PC', '/client-musics/add', ['class'=>'btn btn-warning']) ?>
+            <?= $this->Html->link('URL', '/client-musics/addurl', ['class'=>'btn btn-warning']) ?>
           </div>
         </div>
       </div>
@@ -340,9 +355,10 @@ ul
 
     <div id="global">
       <div class="affichage">
-        <video id="principale" width="470" height="280" controls style="margin-right: 20%;">
+        <video id="principale" width="470"  height="280" controls style="margin-right: 20%;display: none;">
           <source src="" type="video/mp4">
         </video>
+        <img id="imgpri" style="display:none" src="">
       </div>
       <div class="icon-bar">
           <a class="active"><i class="fa fa-pencil"><br></i></a>

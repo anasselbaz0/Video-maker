@@ -127,9 +127,12 @@ class ClientFoldersController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-    public function workspace($id = null)
+    public function workspace()
     {
         $this->loadModel('Clients');
+        $this->loadModel('ClientMusics');
+        $this->loadModel('ClientVideos');
+        $this->loadModel('ClientImages');
         $client = $this->Clients
             ->find()
             ->where(['users_id'=>$this->request->session()->read('Auth.User.id')])
@@ -138,12 +141,17 @@ class ClientFoldersController extends AppController
             ->find()
             ->where(['clients_id'=>$client->id])
             ->first();
-        $this->loadModel('ClientImages');
         $images = $this->ClientImages
             ->find()
-            ->where(['client_folders_id =' => $clientFolder->id]);
+            ->where(['client_folders_id =' => $folder_id]);
+        $videos = $this->ClientVideos
+            ->find()
+            ->where(['client_folders_id =' => $folder_id]);
+        $musics = $this->ClientMusics
+            ->find()
+            ->where(['client_folders_id =' => $folder_id]);
         
-        $this->set(compact('images'));
+        $this->set(compact('images','videos','musics'));
     }
 
 }

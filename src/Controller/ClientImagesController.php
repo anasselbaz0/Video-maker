@@ -69,28 +69,6 @@ class ClientImagesController extends AppController
                     ->first();
                 $uploadPath = 'folders/'.$client->name.'/'.$clientFolder->title.'/';
                 $uploadFile = $uploadPath.$fileName;
-                // // redimensionement
-                // $source = $uploadFile;
-                // $info=(pathinfo($source));
-                // debug($source); die();
-                // $dest=$info['dirname'].'/'.$info['filename'].'.'.$info['extension'];
-                // $size = getimagesize($source);
-                // if ($info['extension']=='jpg' || $info['extension'] =='jpeg')
-                // {
-                //     $imageRessource = imagecreatefromjpeg($source);
-                //     $imgFinal = imagecreatetruecolor (700, 700);
-                //     imagecopyresampled ($imgFinal,$imageRessource,0,0,0,0,700,700,$size[0],$size[1]);
-                //     $quality=100;
-                //     imagejpeg($imgFinal,$dest,$quality); 
-                // } elseif ($info['extension']=='png') {
-                //     $imageRessource = imagecreatefrompng($source);
-                //     $imgFinal = imagecreatetruecolor (700, 700);
-                //     imagecopyresampled ($imgFinal,$imageRessource,0,0,0,0,700,700,$size[0],$size[1]);
-                //     $quality=9;
-                //     imagepng($imgFinal,$dest,$quality); 
-                // }   
-
-
                 if(move_uploaded_file($this->request->data['path']['tmp_name'], $uploadFile)) {
                     $clientImage->path = $this->request->webroot.$uploadFile;
                     $clientImage->client_folders_id = $clientFolder->id;
