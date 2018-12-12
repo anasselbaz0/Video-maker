@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS `db_makev`.`admins` (
 ENGINE = InnoDB
 COMMENT = '							';
 
-CREATE INDEX `fk_admins_users1_idx` ON `db_makev`.`admins` (`users_id` ASC) VISIBLE;
+
 
 
 -- -----------------------------------------------------
@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `db_makev`.`admin_folders` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_admin_folders_admins1_idx` ON `db_makev`.`admin_folders` (`admins_id` ASC) VISIBLE;
+
 
 
 -- -----------------------------------------------------
@@ -90,7 +90,7 @@ CREATE TABLE IF NOT EXISTS `db_makev`.`admin_images` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_admin_images_admin_folders1_idx` ON `db_makev`.`admin_images` (`admin_folders_id` ASC) VISIBLE;
+
 
 
 -- -----------------------------------------------------
@@ -110,7 +110,7 @@ CREATE TABLE IF NOT EXISTS `db_makev`.`admin_videos` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_admin_videos_admin_folders1_idx` ON `db_makev`.`admin_videos` (`admin_folders_id` ASC) VISIBLE;
+
 
 
 -- -----------------------------------------------------
@@ -130,7 +130,7 @@ CREATE TABLE IF NOT EXISTS `db_makev`.`admin_musics` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_admin_musics_admin_folders1_idx` ON `db_makev`.`admin_musics` (`admin_folders_id` ASC) VISIBLE;
+
 
 
 -- -----------------------------------------------------
@@ -150,10 +150,9 @@ CREATE TABLE IF NOT EXISTS `db_makev`.`clients` (
     REFERENCES `db_makev`.`users` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB
-COMMENT = '							';
+ENGINE = InnoDB;
 
-CREATE INDEX `fk_admins_users1_idx` ON `db_makev`.`clients` (`users_id` ASC) VISIBLE;
+
 
 
 -- -----------------------------------------------------
@@ -173,7 +172,7 @@ CREATE TABLE IF NOT EXISTS `db_makev`.`client_folders` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_client_folders_clients1_idx` ON `db_makev`.`client_folders` (`clients_id` ASC) VISIBLE;
+
 
 
 -- -----------------------------------------------------
@@ -193,7 +192,7 @@ CREATE TABLE IF NOT EXISTS `db_makev`.`client_musics` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_client_musics_client_folders1_idx` ON `db_makev`.`client_musics` (`client_folders_id` ASC) VISIBLE;
+
 
 
 -- -----------------------------------------------------
@@ -213,7 +212,7 @@ CREATE TABLE IF NOT EXISTS `db_makev`.`client_videos` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_client_videos_client_folders1_idx` ON `db_makev`.`client_videos` (`client_folders_id` ASC) VISIBLE;
+
 
 
 -- -----------------------------------------------------
@@ -233,7 +232,7 @@ CREATE TABLE IF NOT EXISTS `db_makev`.`client_images` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_client_images_client_folders1_idx` ON `db_makev`.`client_images` (`client_folders_id` ASC) VISIBLE;
+
 
 
 -- -----------------------------------------------------
@@ -253,7 +252,7 @@ CREATE TABLE IF NOT EXISTS `db_makev`.`client_results` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_client_results_clients1_idx` ON `db_makev`.`client_results` (`clients_id` ASC) VISIBLE;
+
 
 
 -- -----------------------------------------------------
@@ -273,7 +272,7 @@ CREATE TABLE IF NOT EXISTS `db_makev`.`admin_results` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_admin_results_admins1_idx` ON `db_makev`.`admin_results` (`admins_id` ASC) VISIBLE;
+
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
