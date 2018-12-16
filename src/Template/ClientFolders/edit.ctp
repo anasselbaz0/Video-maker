@@ -24,7 +24,6 @@
         <legend><?= __('Edit Client Folder') ?></legend>
         <?php
             echo $this->Form->control('clients_id', ['options' => $clients]);
-            echo $this->Form->control('title');
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

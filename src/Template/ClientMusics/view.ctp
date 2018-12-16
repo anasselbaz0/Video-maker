@@ -24,7 +24,7 @@
         </tr>
         <tr>
             <th scope="row"><?= __('Client Folder') ?></th>
-            <td><?= $clientMusic->has('client_folder') ? $this->Html->link($clientMusic->client_folder->title, ['controller' => 'ClientFolders', 'action' => 'view', $clientMusic->client_folder->id]) : '' ?></td>
+            <td><?= $clientMusic->has('client_folder') ? $this->Html->link($clientMusic->client_folder->id, ['controller' => 'ClientFolders', 'action' => 'view', $clientMusic->client_folder->id]) : '' ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Id') ?></th>

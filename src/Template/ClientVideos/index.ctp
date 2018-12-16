@@ -28,7 +28,7 @@
             <tr>
                 <td><?= $this->Number->format($clientVideo->id) ?></td>
                 <td><?= h($clientVideo->path) ?></td>
-                <td><?= $clientVideo->has('client_folder') ? $this->Html->link($clientVideo->client_folder->title, ['controller' => 'ClientFolders', 'action' => 'view', $clientVideo->client_folder->id]) : '' ?></td>
+                <td><?= $clientVideo->has('client_folder') ? $this->Html->link($clientVideo->client_folder->id, ['controller' => 'ClientFolders', 'action' => 'view', $clientVideo->client_folder->id]) : '' ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $clientVideo->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $clientVideo->id]) ?>

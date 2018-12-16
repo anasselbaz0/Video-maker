@@ -63,8 +63,7 @@ class AppController extends Controller
         ]);
 
         $this->loadComponent('Flash');
-
-        $this->Auth->allow(['display','login','register','logout']);
+        $this->Auth->allow(['display']);
 
         /*
          * Enable the following component for recommended CakePHP security settings.

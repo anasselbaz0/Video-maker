@@ -1,4 +1,4 @@
-
+<?php $this->layout='ho'; ?>
 <!-- <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -44,7 +44,7 @@
                 <div class="title">
                     <h4>PERSONAL INFORMATIONS</h4>
                 </div>
-                <?php echo $this->Html->link('Re-subscribe', '/users/paiment', ['class'=>'btn btn-warning']) ?>
+                <?php echo $this->Html->link('Re-subscribe', '/clients/paiement', ['class'=>'btn btn-warning']) ?>
                 <table style="width: 60%; border-radius: 10px; margin: 10px auto;">
                     <tr>
                         <td style="text-align: center;">Name</td>
@@ -55,8 +55,8 @@
                         <td style="text-align: center;"><?php echo $meUser->email ?></td>
                     </tr>
                     <tr>
-                        <td style="text-align: center;">Start Abonment</td>
-                        <td style="text-align: center;"><?php echo $meClient->start_abonement ?></td>
+                        <td style="text-align: center;">END Abonment</td>
+                        <td style="text-align: center;"><?php echo $meClient->end_abonement ?></td>
                     </tr> 
                     <tr>
                         <td style="text-align: center;">Duration Abonment</td>
@@ -74,7 +74,7 @@
                         <tr>
                             <td style="text-align: center;">Title</td>
                             <td style="text-align: center;"><?php echo $folder->title ?></td>
-                            <td style="text-align: center;"><?= $this->Html->link('EDIT', '/client-folders/workspace?$folder_id='.$folder->id) ?></td>
+                            <td style="text-align: center;"><?= $this->Html->link('EDIT', '/users/index1?titre='.$folder->title) ?></td>
                         </tr>
                     <?php } ?>
                 </table>

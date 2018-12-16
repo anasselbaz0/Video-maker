@@ -2,153 +2,13 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <style type="text/css">
-      body{
-    background-image: url('../img/bg_login.jpeg');
-  }
-  html,body{
-      position: relative;
-      height: 100%;
-  }
-
-  .login-container{
-      position: relative;
-      width: 100%;
-      margin: 9px auto;
-      padding: 50px 40px 40px;
-      text-align: center;
-      background: #fff;
-      border: 1px solid #ccc;
-  }
-
-  #output{
-      position: absolute;
-      width: 300px;
-      top: -75px;
-      left: 0;
-      color: #fff;
-  }
-
-  #output.alert-success{
-      background: rgb(25, 204, 25);
-  }
-
-  #output.alert-danger{
-      background: rgb(228, 105, 105);
-  }
-
-
-  .login-container::before,.login-container::after{
-      content: "";
-      position: absolute;
-      width: 100%;height: 100%;
-      top: 3.5px;left: 0;
-      background: #fff;
-      z-index: -1;
-      -webkit-transform: rotateZ(4deg);
-      -moz-transform: rotateZ(4deg);
-      -ms-transform: rotateZ(4deg);
-      border: 1px solid #ccc;
-
-  }
-
-  .login-container::after{
-      top: 5px;
-      z-index: -2;
-      -webkit-transform: rotateZ(-2deg);
-       -moz-transform: rotateZ(-2deg);
-        -ms-transform: rotateZ(-2deg);
-
-  }
-
-  .avatar{
-      width: 100px;height: 100px;
-      margin: 10px auto 30px;
-      border-radius: 100%;
-      border: 2px solid #aaa;
-      background-size: cover;
-  }
-
-  .form-box input{
-      width: 100%;
-      padding: 10px;
-      text-align: center;
-      height:40px;
-      border: 1px solid #ccc;;
-      background: #fafafa;
-      transition:0.2s ease-in-out;
-
-  }
-
-  .form-box input:focus{
-      outline: 0;
-      background: #eee;
-  }
-
-  .form-box input[type="text"]{
-      border-radius: 5px 5px 0 0;
-      text-transform: lowercase;
-  }
-
-  .form-box input[type="password"]{
-      border-radius: 0 0 5px 5px;
-      border-top: 0;
-  }
-
-  .form-box button.login{
-      margin-top:15px;
-      padding: 10px 20px;
-  }
-
-  .animated {
-    -webkit-animation-duration: 1s;
-    animation-duration: 1s;
-    -webkit-animation-fill-mode: both;
-    animation-fill-mode: both;
-  }
-
-  @-webkit-keyframes fadeInUp {
-    0% {
-      opacity: 0;
-      -webkit-transform: translateY(20px);
-      transform: translateY(20px);
-    }
-
-    100% {
-      opacity: 1;
-      -webkit-transform: translateY(0);
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes fadeInUp {
-    0% {
-      opacity: 0;
-      -webkit-transform: translateY(20px);
-      -ms-transform: translateY(20px);
-      transform: translateY(20px);
-    }
-
-    100% {
-      opacity: 1;
-      -webkit-transform: translateY(0);
-      -ms-transform: translateY(0);
-      transform: translateY(0);
-    }
-  }
-
-  .fadeInUp {
-    -webkit-animation-name: fadeInUp;
-    animation-name: fadeInUp;
-  } 
-    </style>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Video Maker : Home</title>
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/icon" href="img/logo.png"/>
+    <link rel="shortcut icon" type="image/icon" href="assets/images/logo.png"/>
     <!-- Font Awesome -->
     <link href="assets/css/font-awesome.css" rel="stylesheet">
     <!-- Bootstrap -->
@@ -160,7 +20,7 @@
     <!-- Animate css -->
     <link rel="stylesheet" type="text/css" href="assets/css/animate.css"/>  
      <!-- Theme color -->
-    <link id="switcher" href="assets/css/theme-color/orange-theme.css" rel="stylesheet">
+    <link id="switcher" href="assets/css/theme-color/default-theme.css" rel="stylesheet">
 
     <!-- Main Style -->
     <link href="assets/css/style.css" rel="stylesheet">
@@ -201,9 +61,10 @@
 
       <span class="fa fa-remove" id="close"></span>
       <ul>  
-        <li><a href="" data-toggle="modal" data-target="#modal_login"><i class="fa fa-user"></i><span>Login</span></a></li>
-        <li><a href="" data-toggle="modal" data-target="#modal_register"><i class="fa fa-user"></i><span>Register</span></a></li>
-        <!-- <li><a href="" data-toggle="modal" data-target="#modal2"><i class="fa fa-registered"></i><span>Register</span></a></li> -->
+        <li>
+          <!-- <?= $this->Html->link('Login', '/users/login') ?> -->
+          <a href="" data-toggle="modal" data-target="#modal1"><i class="fa fa-user"></i><span>Login</span></a></li>
+        <li><a href="" data-toggle="modal" data-target="#modal2"><i class="fa fa-registered"></i><span>Register</span></a></li>
         <li><a href="#header"><i class="fa fa-home" aria-hidden="true"></i></i><span>Home</span></a></li>
         <li><a href="#features"><i class="fa fa-server"></i><span>Services</span></a></li>
         <li><a href="#howit-works"><i class="fa fa-hourglass"></i><span>How it Works</span></a></li>
@@ -242,7 +103,7 @@
                   <!-- Start logo area -->
                   <div class="logo-area">
                     <!-- Image based logo -->
-                    <a class="logo" href="index.html"><img src="img/logo.png" alt="logo"></a>
+                    <a class="logo" href="index.html"><img src="assets/images/logo.png" alt="logo"></a>
                     <!-- Text based logo -->
                     <!-- <a class="logo" href="index.html">App Landy.</a> -->
                   </div>
@@ -581,54 +442,191 @@
   </footer>
   <!-- End -->
 
+ <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="container" style="width: 100%; margin-top: 10%">
+    <style type="text/css">
+         /*body{
+            background-image: url('../img/bg_login.jpeg');
+          }
+          html,body{
+              position: relative;
+              height: 100%;
+          }*/
 
-<!-- START MODALS -->
-<div class="modal fade" id="modal_login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="container" style="width: 100%; margin-top: 10%">
-    <div class="login-container" style="width: 50%;">
-      <div class="form-box">
-        <?= $this->Form->create(null,['url'=>['controller'=>'users','action'=>'login']]) ?>
-        <fieldset style="margin-bottom: 20px;">
-        <legend><?= __('LOGIN') ?></legend>
-          <?= $this->Form->control('email') ?>
-          <?= $this->Form->control('password') ?>
-        </fieldset>
-        <?= $this->Form->button(__('Submit'), ['class'=>'btn btn-warning']) ?>
-        <?= $this->Form->end() ?>
-      </div>
-    </div>
-  </div>
-</div>
+          .login-container{
+              position: relative;
+              width: 100%;
+              margin: 9px auto;
+              padding: 50px 40px 40px;
+              text-align: center;
+              background: #fff;
+              border: 1px solid #ccc;
+          }
 
-<div class="modal fade" id="modal_register" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="container" style="width: 100%; margin-top: 10%">
+          #output{
+              position: absolute;
+              width: 300px;
+              top: -75px;
+              left: 0;
+              color: #fff;
+          }
+
+          #output.alert-success{
+              background: rgb(25, 204, 25);
+          }
+
+          #output.alert-danger{
+              background: rgb(228, 105, 105);
+          }
+
+
+          .login-container::before,.login-container::after{
+              content: "";
+              position: absolute;
+              width: 100%;height: 100%;
+              top: 3.5px;left: 0;
+              background: #fff;
+              z-index: -1;
+              -webkit-transform: rotateZ(4deg);
+              -moz-transform: rotateZ(4deg);
+              -ms-transform: rotateZ(4deg);
+              border: 1px solid #ccc;
+
+          }
+
+          .login-container::after{
+              top: 5px;
+              z-index: -2;
+              -webkit-transform: rotateZ(-2deg);
+               -moz-transform: rotateZ(-2deg);
+                -ms-transform: rotateZ(-2deg);
+
+          }
+
+          .avatar{
+              width: 100px;height: 100px;
+              margin: 10px auto 30px;
+              border-radius: 100%;
+              border: 2px solid #aaa;
+              background-size: cover;
+          }
+
+          .form-box input{
+              width: 100%;
+              padding: 10px;
+              text-align: center;
+              height:40px;
+              border: 1px solid #ccc;;
+              background: #fafafa;
+              transition:0.2s ease-in-out;
+
+          }
+
+          .form-box input:focus{
+              outline: 0;
+              background: #eee;
+          }
+
+          .form-box input[type="text"]{
+              border-radius: 5px 5px 0 0;
+              text-transform: lowercase;
+          }
+
+          .form-box input[type="password"]{
+              border-radius: 0 0 5px 5px;
+              border-top: 0;
+          }
+
+          .form-box button.login{
+              margin-top:15px;
+              padding: 10px 20px;
+          }
+
+          .animated {
+            -webkit-animation-duration: 1s;
+            animation-duration: 1s;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+          }
+
+          @-webkit-keyframes fadeInUp {
+            0% {
+              opacity: 0;
+              -webkit-transform: translateY(20px);
+              transform: translateY(20px);
+            }
+
+            100% {
+              opacity: 1;
+              -webkit-transform: translateY(0);
+              transform: translateY(0);
+            }
+          }
+
+          @keyframes fadeInUp {
+            0% {
+              opacity: 0;
+              -webkit-transform: translateY(20px);
+              -ms-transform: translateY(20px);
+              transform: translateY(20px);
+            }
+
+            100% {
+              opacity: 1;
+              -webkit-transform: translateY(0);
+              -ms-transform: translateY(0);
+              transform: translateY(0);
+            }
+          }
+
+          .fadeInUp {
+            -webkit-animation-name: fadeInUp;
+            animation-name: fadeInUp;
+          } 
+ </style>
     <div class="login-container" style="width: 50%;">
-      <div class="form-box">
-        <?= $this->Form->create(null,['url'=>['controller'=>'users','action'=>'register']]) ?>
-        <fieldset style="margin-bottom: 20px;">
-        <legend><?= __('REGISTER') ?></legend>
-          <?= $this->Form->control('name') ?>
-          <?= $this->Form->control('email') ?>
-          <?= $this->Form->control('password') ?>
-        </fieldset>
-        <?= $this->Form->button(__('Submit'), ['class'=>'btn btn-warning']) ?>
-        <?= $this->Form->end() ?>
-      </div>
-    </div>
-  </div>
-</div>
-  <!-- END MODALS -->
-       
+        <!-- <div id="output"></div> -->
      
+        <div class="form-box">
+            <?= $this->Form->create(null,['url'=>['controller'=>'users','action'=>'login']]) ?>
+        <fieldset style="margin-bottom: 20px;">
+            <legend><?= __('LOGIN') ?></legend>
             
               
+          <?= $this->Form->control('email') ?>
+          <?= $this->Form->control('password') ?>
             
+        </fieldset>
+        <?= $this->Form->button(__('Submit'), ['class'=>'btn btn-primary']) ?>
+        <?= $this->Form->end() ?>
+        </div>
+    </div>
+</div>
+    </div>
 
-    
-
-
-
-
+<div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="container" style="width: 100%; margin-top: 10%">
+  
+    <div class="login-container" style="width: 50%;">
+        <!-- <div id="output"></div> -->
+     
+        <div class="form-box">
+            <?= $this->Form->create(null,['url'=>['controller'=>'users','action'=>'add']]) ?>
+        <fieldset style="margin-bottom: 20px;">
+            <legend><?= __('Register') ?></legend>
+            
+              
+          <?= $this->Form->control('email') ?>
+          <?= $this->Form->control('password') ?>
+          <?= $this->Form->control('name') ?>
+            
+        </fieldset>
+        <?= $this->Form->button(__('Submit'), ['class'=>'btn btn-primary']) ?>
+        <?= $this->Form->end() ?>
+        </div>
+    </div>
+</div>
+    </div>
 
   <!-- jQuery library -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>    

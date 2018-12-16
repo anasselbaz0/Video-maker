@@ -19,7 +19,6 @@
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('clients_id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('title') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -28,7 +27,6 @@
             <tr>
                 <td><?= $this->Number->format($clientFolder->id) ?></td>
                 <td><?= $clientFolder->has('client') ? $this->Html->link($clientFolder->client->name, ['controller' => 'Clients', 'action' => 'view', $clientFolder->client->id]) : '' ?></td>
-                <td><?= h($clientFolder->title) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $clientFolder->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $clientFolder->id]) ?>

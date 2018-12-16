@@ -24,7 +24,7 @@
         </tr>
         <tr>
             <th scope="row"><?= __('Client Folder') ?></th>
-            <td><?= $clientVideo->has('client_folder') ? $this->Html->link($clientVideo->client_folder->title, ['controller' => 'ClientFolders', 'action' => 'view', $clientVideo->client_folder->id]) : '' ?></td>
+            <td><?= $clientVideo->has('client_folder') ? $this->Html->link($clientVideo->client_folder->id, ['controller' => 'ClientFolders', 'action' => 'view', $clientVideo->client_folder->id]) : '' ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Id') ?></th>

@@ -28,7 +28,7 @@
             <tr>
                 <td><?= $this->Number->format($clientImage->id) ?></td>
                 <td><?= h($clientImage->path) ?></td>
-                <td><?= $clientImage->has('client_folder') ? $this->Html->link($clientImage->client_folder->title, ['controller' => 'ClientFolders', 'action' => 'view', $clientImage->client_folder->id]) : '' ?></td>
+                <td><?= $clientImage->has('client_folder') ? $this->Html->link($clientImage->client_folder->id, ['controller' => 'ClientFolders', 'action' => 'view', $clientImage->client_folder->id]) : '' ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $clientImage->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $clientImage->id]) ?>

@@ -18,13 +18,37 @@ class UsersController extends AppController
      *
      * @return \Cake\Http\Response|void
      */
-    public function index()
-    {
+    public function index1(){
 
         
+        $this->loadModel('ClientVideos');
+        $this->loadModel('ClientFolders');
+        $this->loadModel('ClientImages');
+        $this->loadModel('ClientMusics');
+        $this->loadModel('Clients');
+        $client=$this->Clients->find('all')->where([
+                    'users_id ='=>$this->request->session()->read('Auth.User.id')
+                ])->first();
+        $folder=$this->ClientFolders->find('all')->where([
+                    'clients_id ='=>$client['id'],
+                    'title ='=>$this->request->query['titre']
+                ])->first();
+        $images=$this->ClientImages->find('all')->where([
+                    'client_folders_id ='=>$folder['id']
+                ]);
+        $videos=$this->ClientVideos->find('all')->where([
+                    'client_folders_id ='=>$folder['id']
+                ]);
+        $musics=$this->ClientMusics->find('all')->where([
+                    'client_folders_id ='=>$folder['id']
+                ]);
         $users = $this->paginate($this->Users);
-
-        $this->set(compact('users'));
+        $this->loadModel('Clients');
+            $client = $this->Clients
+                ->find('all')
+                ->where(['users_id =' => $this->request->session()->read('Auth.User.id')])
+                ->first();
+        $this->set(compact('users','client','videos','images','musics'));
     }
 
     /**
@@ -34,12 +58,12 @@ class UsersController extends AppController
      * @return \Cake\Http\Response|void
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
+
     public function view($id = null)
     {
         $user = $this->Users->get($id, [
             'contain' => []
         ]);
-
         $this->set('user', $user);
     }
 
@@ -48,14 +72,14 @@ class UsersController extends AppController
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function register()
-    {
+    public function add(){
         $user = $this->Users->newEntity();
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
-            $user['type']='client';
+            
+                    
             if ($this->Users->save($user)) {
-                // $this->Flash->success(__('YOU ARE REGISTERED!'));
+                $this->Flash->success(__('The user has been saved.'));
                 $id = $this
                     ->Users
                     ->find()
@@ -63,16 +87,14 @@ class UsersController extends AppController
                     ->where(['email =' => $this->request->data['email']])->first();
                 return $this->redirect([
                     'controller' => 'clients',
-                    'action'=>'register',
-                    'client_data'=>[
+                    'action'=>'add',
+                    '?'=>[
                         'users_id'=>$id['id'],
-                        'name'=>$this->request->data['name'],
-                        'start_abonement'=>date("Y-m-d H:i:s"),
-                        'duration_abonement'=>'0'
+                        'name'=>$this->request->data['name']
                     ]
                 ]);
             }
-            // $this->Flash->error(__('The user could not be saved. Please, try again.'));
+            $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
         $this->set(compact('user'));
     }
@@ -120,32 +142,34 @@ class UsersController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
-    
-
     public function login(){
         if ($this->request->is('post')) {
+        
             $user = $this->Auth->identify();
+
             if ($user) {
                 $this->Auth->setUser($user);
-                if ($user['type'] == 'client') {
-                    return $this->redirect(['controller'=>'clients','action'=>'profil']);
-                } else {
-                    return $this->redirect(['controller'=>'admins','action'=>'profil']);
-                }
+                return $this->redirect(['controller'=>'clients','action'=>'profil']);
             }
             $this->Flash->error('Votre username ou mot de passe est incorrect.');
-            //return $this->redirect(['controller'=>'Pages','action'=>'display', 'home']);
         }
-    }
 
+    }
+    public function test(){
+        debug($this->request);
+        die();
+    }
+    public function cmd(){
+        
+    }
     public function logout(){
         $this->Flash->success('Vous êtes maintenant déconnecté.');
         return $this->redirect($this->Auth->logout());
     }
-
     public function initialize(){
     parent::initialize();
-    
+    // Ajoute logout à la liste des actions autorisées.
+    $this->Auth->allow(['logout', 'add']);
     }
 
 }

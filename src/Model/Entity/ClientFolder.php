@@ -8,7 +8,6 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property int $clients_id
- * @property string|null $title
  *
  * @property \App\Model\Entity\Client $client
  */
@@ -26,7 +25,7 @@ class ClientFolder extends Entity
      */
     protected $_accessible = [
         'clients_id' => true,
-        'title' => true,
-        'client' => true
+        'client' => true,
+        'title' => true
     ];
 }

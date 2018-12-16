@@ -51,12 +51,11 @@ class ClientImagesController extends AppController
      */
     public function add()
     {
-        // debug($this); die();
-        $clientImage = $this->ClientImages->newEntity();
+        $clientVideo = $this->ClientImages->newEntity();
         if ($this->request->is('post')) {
             // debug($this->request->data); die();
-            if(!empty($this->request->data['path']['name'])){
-                $fileName = $this->request->data['path']['name'];
+            if(!empty($this->request->data['url']['name'])){
+                $fileName = $this->request->data['url']['name'];
                 $this->loadModel('ClientFolders');
                 $this->loadModel('Clients');
                 $client = $this->Clients
@@ -65,16 +64,18 @@ class ClientImagesController extends AppController
                     ->first();
                 $clientFolder = $this->ClientFolders
                     ->find()
-                    ->where(['clients_id =' => $client->id])
+                    ->where(['clients_id =' => $client->id,
+                        'title ='=>$this->request->data['folder']
+                ])
                     ->first();
                 $uploadPath = 'folders/'.$client->name.'/'.$clientFolder->title.'/';
                 $uploadFile = $uploadPath.$fileName;
-                if(move_uploaded_file($this->request->data['path']['tmp_name'], $uploadFile)) {
-                    $clientImage->path = $this->request->webroot.$uploadFile;
-                    $clientImage->client_folders_id = $clientFolder->id;
-                    if ($this->ClientImages->save($clientImage)) {
+                if(move_uploaded_file($this->request->data['url']['tmp_name'], $uploadFile)) {
+                    $clientVideo->path = $this->request->webroot.$uploadFile;
+                    $clientVideo->client_folders_id = $clientFolder->id;
+                    if ($this->ClientImages->save($clientVideo)) {
                         $this->Flash->success(__('Ressource has been uploaded and inserted successfully.'));
-                        return $this->redirect(['controller'=>'ClientFolders','action' => 'workspace']);
+                        return $this->redirect(['controller'=>'users','action'=>'index1','?'=>['titre'=>$this->request->data['folder']]]);
                     }else{
                         $this->Flash->error(__('Unable to upload Ressource, please try again.'));
                     }
@@ -86,12 +87,13 @@ class ClientImagesController extends AppController
             }
         }
         $clientFolders = $this->ClientImages->ClientFolders->find('list', ['limit' => 200]);
-        $this->set(compact('clientImage', 'clientFolders'));
+        $this->set(compact('clientVideo', 'clientFolders'));
     }
 
     public function addurl()
     {
         if ($this->request->is('post')) {
+            
             $url = $this->request->data['url'];
             $parse = parse_url($url);
             $domaine = $parse['host'];
@@ -101,15 +103,22 @@ class ClientImagesController extends AppController
             $dom->preserveWhiteSpace = false;
             $images = $dom->getElementsByTagName('img');
             $im = array();
+            
             foreach ($images as $image) {
                 $i = parse_url($image->getAttribute('src'));
+                $i = parse_url($image->getAttribute('data-src'));
                 if ( !isset($i['host']) ) {  
                     $im[] = 'https://'.$domaine.$image->getAttribute('src');
+                    $im[] = 'https://'.$domaine.$image->getAttribute('data-src');
                 } else {
+                    $im[] = $image->getAttribute('data-src');
                     $im[] = $image->getAttribute('src');
                 }
             }
+                
+                
             $r = $this->paginate($this->ClientImages);
+
             $i = sizeof($r);
             foreach ($im as $ima) {
                 $this->loadModel('ClientFolders');
@@ -120,20 +129,30 @@ class ClientImagesController extends AppController
                     ->first();
                 $clientFolder = $this->ClientFolders
                     ->find()
-                    ->where(['clients_id =' => $client->id])
+                    ->where(['clients_id =' => $client->id,
+                        'title ='=>$this->request->data['folder']
+                ])
                     ->first();
                 $uploadPath = 'folders/'.$client->name.'/'.$clientFolder->title.'/';
                 $fileName = "imgurl".$i.".jpg";
+                $fileName1 = "imgurl".$i.".png";
                 $uploadFile = $uploadPath.$fileName;
+                $uploadFile1 = $uploadPath.$fileName1;
                 $des = $uploadFile;
+                $des1 = $uploadFile1;
                 $data = file_get_contents($ima);
-                if( file_put_contents($des, $data) ) {
+                file_put_contents($des1, $data);
+                if( file_put_contents($des, $data)) {
                     $clientImage = $this->ClientImages->newEntity();
                     $clientImage->path = $this->request->webroot.$uploadFile;
-                    $clientImage->client_folfers_id = $clientFolder->id;
-                    if ($this->VideoRessources->save($image)) {
+                    $clientImage->client_folders_id = $clientFolder->id;
+                    $clientImage1 = $this->ClientImages->newEntity();
+                    $clientImage1->path = $this->request->webroot.$uploadFile1;
+                    $clientImage1->client_folders_id = $clientFolder->id;
+                    $this->ClientImages->save($clientImage1);
+                    if ($this->ClientImages->save($clientImage)) {
                         $this->Flash->success(__('Image has been uploaded and inserted successfully.'));
-                        return $this->redirect(['action' => 'upload']);
+                        return $this->redirect(['controller'=>'users','action'=>'index1','?'=>['titre'=>$this->request->data['folder']]]);
                         
                     }else{
                         $this->Flash->error(__('Unable to upload image, please try again.'));
@@ -143,7 +162,6 @@ class ClientImagesController extends AppController
             }
         }
     }
-
     /**
      * Edit method
      *

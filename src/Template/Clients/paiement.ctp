@@ -2,7 +2,36 @@
 <?= $this->Html->css('styles') ?>
 <?= $this->Html->css('demo') ?>
 <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+<script type="text/javascript">
+	var getHttpRequest = function(){
 
+	var httpRequest = false;
+
+	if (window.XMLHttpRequest){
+		httpRequest = new XMLHttpRequest();
+		if (httpRequest.overrideMimeType){
+			httpRequest.overrideMimeType('text/xml');
+		}
+	}
+	else if (window.ActiveXObject){
+		try{
+			httpRequest = new ActiveXObject("Msxml2.XMLHTTP");
+
+		}catch (e) {
+			try{
+				httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+			}catch (e){}
+		}
+	}
+	if (!httpRequest) {
+		alert('Abondand');
+		return false;
+	}
+
+
+	return httpRequest;
+}
+</script>
 
 <script>
 		// Render the PayPal button
@@ -44,7 +73,7 @@
 		      transactions: [
 		        {
 		          amount: {
-		            total: '400.00',
+		            total: '40.00',
 		            currency: 'USD'
 		          }
 		        }
@@ -57,7 +86,13 @@
 		  return actions.payment.execute()
 		    .then(function () {
 		      window.alert('Payment Complete!');
-
+		      var httpRequest = getHttpRequest()
+				httpRequest.onreadystatechange = function (){
+					if (httpRequest.readyState === 4){
+					}	
+				}
+				httpRequest.open('GET','/montage_moi/clients/payer?mois=12&id='+<?= '\''.$this->request->session()->read('Auth.User.id').'\'' ?>,true)
+				httpRequest.send()
 		    });
 		}
 		}, '#paypal-button-container0');
@@ -106,7 +141,7 @@
 		      transactions: [
 		        {
 		          amount: {
-		            total: '250.00',
+		            total: '25.00',
 		            currency: 'USD'
 		          }
 		        }
@@ -116,12 +151,18 @@
 		},
 
 		onAuthorize: function (data, actions) {
-		  return actions.payment.execute()
-		    .then(function () {
-		      window.alert('Payment Complete!');
-
-		    });
-		}
+		return actions.payment.execute()
+			.then(function () {
+			    window.alert('Payment Complete!');
+			    var httpRequest = getHttpRequest()
+				httpRequest.onreadystatechange = function (){
+					if (httpRequest.readyState === 4){
+					}	
+				}
+				httpRequest.open('GET','/montage_moi/clients/payer?mois=6&id='+<?= '\''.$this->request->session()->read('Auth.User.id').'\'' ?>,true)
+				httpRequest.send()
+			    });
+			}
 		}, '#paypal-button-container1');
 </script>
 <script>
@@ -168,7 +209,7 @@
 		      transactions: [
 		        {
 		          amount: {
-		            total: '150.00',
+		            total: '15.00',
 		            currency: 'USD'
 		          }
 		        }
@@ -181,7 +222,13 @@
 		  return actions.payment.execute()
 		    .then(function () {
 		      window.alert('Payment Complete!');
-
+		      var httpRequest = getHttpRequest()
+				httpRequest.onreadystatechange = function (){
+					if (httpRequest.readyState === 4){
+					}	
+				}
+				httpRequest.open('GET','/montage_moi/clients/payer?mois=3&id='+<?= '\''.$this->request->session()->read('Auth.User.id').'\'' ?>,true)
+				httpRequest.send()
 		    });
 		}
 		}, '#paypal-button-container2');
@@ -230,7 +277,7 @@
 		      transactions: [
 		        {
 		          amount: {
-		            total: '100.00',
+		            total: '10.00',
 		            currency: 'USD'
 		          }
 		        }
@@ -243,9 +290,13 @@
 		  return actions.payment.execute()
 		    .then(function () {
 		      window.alert('Payment Complete!');
-		      <?php
-		        
-		      ?>
+		      var httpRequest = getHttpRequest()
+				httpRequest.onreadystatechange = function (){
+					if (httpRequest.readyState === 4){
+					}	
+				}
+				httpRequest.open('GET','/montage_moi/clients/payer?mois=1&id='+<?= '\''.$this->request->session()->read('Auth.User.id').'\'' ?>,true)
+				httpRequest.send()
 		    });
 		}
 		}, '#paypal-button-container3');
@@ -255,9 +306,10 @@
 			<!-- <!-- freshdesignweb top bar -->
             <div class="freshdesignweb-top">
                 <span class="right">
-                    <a href=>
-                        <strong>Back to the Home page</strong>
-                    </a>
+                   
+                        <strong><?php echo $this->Html->link('Back to the Home page', '/',['class'=>'download-btn']) ?></strong>
+                    
+
                 </span>
                 <div class="clr"></div>
             </div><!--/ freshdesignweb top bar -->
@@ -320,3 +372,4 @@
     
 </div>
 
+<strong><?php echo $this->Html->link('next', '/clients/profil',['class'=>'download-btn']) ?></strong>

@@ -51,12 +51,12 @@ class ClientVideosController extends AppController
      */
     public function add()
     {
-        // debug($this); die();
+        
         $clientVideo = $this->ClientVideos->newEntity();
         if ($this->request->is('post')) {
             // debug($this->request->data); die();
-            if(!empty($this->request->data['path']['name'])){
-                $fileName = $this->request->data['path']['name'];
+            if(!empty($this->request->data['url']['name'])){
+                $fileName = $this->request->data['url']['name'];
                 $this->loadModel('ClientFolders');
                 $this->loadModel('Clients');
                 $client = $this->Clients
@@ -67,14 +67,14 @@ class ClientVideosController extends AppController
                     ->find()
                     ->where(['clients_id =' => $client->id])
                     ->first();
-                $uploadPath = 'folders/'.$client->name.'/'.$clientFolder->title.'/';
+                $uploadPath = 'folders/'.$client->name.$clientFolder->title.'/';
                 $uploadFile = $uploadPath.$fileName;
-                if(move_uploaded_file($this->request->data['path']['tmp_name'], $uploadFile)) {
+                if(move_uploaded_file($this->request->data['url']['tmp_name'], $uploadFile)) {
                     $clientVideo->path = $this->request->webroot.$uploadFile;
                     $clientVideo->client_folders_id = $clientFolder->id;
                     if ($this->ClientVideos->save($clientVideo)) {
                         $this->Flash->success(__('Ressource has been uploaded and inserted successfully.'));
-                        return $this->redirect(['controller'=>'ClientFolders','action' => 'workspace']);
+                        return $this->redirect(['controller'=>'users','action'=>'index1']);
                     }else{
                         $this->Flash->error(__('Unable to upload Ressource, please try again.'));
                     }

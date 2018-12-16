@@ -1,3 +1,4 @@
+<?php $this->layout='ho' ?>
 <style type="text/css">
     .box {
         

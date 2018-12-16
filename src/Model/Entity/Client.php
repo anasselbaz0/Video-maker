@@ -10,7 +10,7 @@ use Cake\ORM\Entity;
  * @property string|null $name
  * @property int $users_id
  * @property \Cake\I18n\FrozenTime|null $start_abonement
- * @property int|null $duration_abonement
+ * @property \Cake\I18n\FrozenTime|null $duration_abonement
  *
  * @property \App\Model\Entity\User $user
  */

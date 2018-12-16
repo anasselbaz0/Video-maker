@@ -34,7 +34,7 @@ class ClientFoldersTable extends Table
         parent::initialize($config);
 
         $this->setTable('client_folders');
-        $this->setDisplayField('title');
+        $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
         $this->belongsTo('Clients', [
@@ -54,11 +54,6 @@ class ClientFoldersTable extends Table
         $validator
             ->integer('id')
             ->allowEmpty('id', 'create');
-
-        $validator
-            ->scalar('title')
-            ->maxLength('title', 45)
-            ->allowEmpty('title');
 
         return $validator;
     }

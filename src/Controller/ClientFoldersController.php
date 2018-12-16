@@ -51,7 +51,6 @@ class ClientFoldersController extends AppController
      */
     public function add()
     {
-        
         $clientFolder = $this->ClientFolders->newEntity();
         if ($this->request->is('post')) {
             $clientFolder = $this->ClientFolders->patchEntity($clientFolder, $this->request->getData());
@@ -74,7 +73,7 @@ class ClientFoldersController extends AppController
                        echo 'yey';
                    } else echo 'nop';
                 }
-                return $this->redirect(['action' => 'workspace']);
+                return $this->redirect(['controller' => 'users','action' => 'index1','?'=>['titre'=>$this->request->data['title']]]);
             }
             $this->Flash->error(__('The client folder could not be saved. Please, try again.'));
         }
@@ -126,34 +125,7 @@ class ClientFoldersController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
-
-    public function workspace()
-    {
-        $this->loadModel('Clients');
-        $this->loadModel('ClientMusics');
-        $this->loadModel('ClientVideos');
-        $this->loadModel('ClientImages');
-        $client = $this->Clients
-            ->find()
-            ->where(['users_id'=>$this->request->session()->read('Auth.User.id')])
-            ->first(); 
-        $clientFolder = $this->ClientFolders
-            ->find()
-            ->where(['clients_id'=>$client->id])
-            ->first();
-        $images = $this->ClientImages
-            ->find()
-            ->where(['client_folders_id =' => $folder_id]);
-        $videos = $this->ClientVideos
-            ->find()
-            ->where(['client_folders_id =' => $folder_id]);
-        $musics = $this->ClientMusics
-            ->find()
-            ->where(['client_folders_id =' => $folder_id]);
+    public function text(){
         
-        $this->set(compact('images','videos','musics'));
     }
-
 }
-
-

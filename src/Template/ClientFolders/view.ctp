@@ -16,15 +16,11 @@
     </ul>
 </nav>
 <div class="clientFolders view large-9 medium-8 columns content">
-    <h3><?= h($clientFolder->title) ?></h3>
+    <h3><?= h($clientFolder->id) ?></h3>
     <table class="vertical-table">
         <tr>
             <th scope="row"><?= __('Client') ?></th>
             <td><?= $clientFolder->has('client') ? $this->Html->link($clientFolder->client->name, ['controller' => 'Clients', 'action' => 'view', $clientFolder->client->id]) : '' ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Title') ?></th>
-            <td><?= h($clientFolder->title) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Id') ?></th>

@@ -1,27 +1,26 @@
-<style type="text/css">
-    .box {
-        
-    }
-</style>
-
-<div id="container" style="width: 90%; margin: auto; margin-top: 5%;">
-    <center>
-        <div class="box" style="width: 90%; margin: 80px auto;">
-            <h1 style="color: white">Select your image.</h1>       
-        </div>
-        <?= $this->Form->create(null, ['type'=>'file']) ?>
-            <div class="box" style="width: 50%; margin: 80px auto;">
-                <div class="input-group input-group-lg">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroup-sizing-lg">Image</span>
-                  </div>
-                    <input name="path" type="file" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
-                </div>
-            </div>
-            <div class="box">
-                <?= $this->Form->submit('NEXT', ['class'=>'btn btn-warning']); ?>
-            </div>
-        <?= $this->Form->end() ?>
-    </center>
+<?php
+/**
+ * @var \App\View\AppView $this
+ * @var \App\Model\Entity\ClientImage $clientImage
+ */
+?>
+<nav class="large-3 medium-4 columns" id="actions-sidebar">
+    <ul class="side-nav">
+        <li class="heading"><?= __('Actions') ?></li>
+        <li><?= $this->Html->link(__('List Client Images'), ['action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('List Client Folders'), ['controller' => 'ClientFolders', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Client Folder'), ['controller' => 'ClientFolders', 'action' => 'add']) ?></li>
+    </ul>
+</nav>
+<div class="clientImages form large-9 medium-8 columns content">
+    <?= $this->Form->create($clientImage) ?>
+    <fieldset>
+        <legend><?= __('Add Client Image') ?></legend>
+        <?php
+            echo $this->Form->control('path');
+            echo $this->Form->control('client_folders_id', ['options' => $clientFolders]);
+        ?>
+    </fieldset>
+    <?= $this->Form->button(__('Submit')) ?>
+    <?= $this->Form->end() ?>
 </div>
-

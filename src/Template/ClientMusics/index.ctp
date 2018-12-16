@@ -28,7 +28,7 @@
             <tr>
                 <td><?= $this->Number->format($clientMusic->id) ?></td>
                 <td><?= h($clientMusic->path) ?></td>
-                <td><?= $clientMusic->has('client_folder') ? $this->Html->link($clientMusic->client_folder->title, ['controller' => 'ClientFolders', 'action' => 'view', $clientMusic->client_folder->id]) : '' ?></td>
+                <td><?= $clientMusic->has('client_folder') ? $this->Html->link($clientMusic->client_folder->id, ['controller' => 'ClientFolders', 'action' => 'view', $clientMusic->client_folder->id]) : '' ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $clientMusic->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $clientMusic->id]) ?>
