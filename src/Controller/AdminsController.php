@@ -54,10 +54,17 @@ class AdminsController extends AppController
         $admin = $this->Admins->newEntity();
         if ($this->request->is('post')) {
             $admin = $this->Admins->patchEntity($admin, $this->request->getData());
+            debug($admin); die();
             if ($this->Admins->save($admin)) {
                 $this->Flash->success(__('The admin has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect([
+                    'controller' => 'users',
+                    'action'=>'add',
+                    '?'=>[
+                        'id'=>$id['id'],
+                        'name'=>$this->request->data['name']
+                    ]
+                ]);
             }
             $this->Flash->error(__('The admin could not be saved. Please, try again.'));
         }

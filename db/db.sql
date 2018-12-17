@@ -8,137 +8,125 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema db_makev
+-- Schema unaux_23161334_db_video
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `db_makev` ;
+
+
 
 -- -----------------------------------------------------
--- Schema db_makev
+-- Table `unaux_23161334_db_video`.`users`
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `db_makev` DEFAULT CHARACTER SET utf8 ;
-USE `db_makev` ;
 
--- -----------------------------------------------------
--- Table `db_makev`.`users`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `db_makev`.`users` ;
 
-CREATE TABLE IF NOT EXISTS `db_makev`.`users` (
+CREATE TABLE IF NOT EXISTS `unaux_23161334_db_video`.`users` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `password` VARCHAR(100) NULL,
   `email` VARCHAR(100) NULL,
   `type` VARCHAR(45) NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
+  PRIMARY KEY (`id`));
 
 
 -- -----------------------------------------------------
--- Table `db_makev`.`admins`
+-- Table `unaux_23161334_db_video`.`admins`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `db_makev`.`admins` ;
 
-CREATE TABLE IF NOT EXISTS `db_makev`.`admins` (
+
+CREATE TABLE IF NOT EXISTS `unaux_23161334_db_video`.`admins` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
   `users_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_admins_users1`
     FOREIGN KEY (`users_id`)
-    REFERENCES `db_makev`.`users` (`id`)
+    REFERENCES `unaux_23161334_db_video`.`users` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-COMMENT = '							';
+    ON UPDATE NO ACTION);
 
 
 
 
 -- -----------------------------------------------------
--- Table `db_makev`.`admin_folders`
+-- Table `unaux_23161334_db_video`.`admin_folders`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `db_makev`.`admin_folders` ;
 
-CREATE TABLE IF NOT EXISTS `db_makev`.`admin_folders` (
+
+CREATE TABLE IF NOT EXISTS `unaux_23161334_db_video`.`admin_folders` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `admins_id` INT NOT NULL,
   `title` VARCHAR(45) NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_admin_folders_admins1`
     FOREIGN KEY (`admins_id`)
-    REFERENCES `db_makev`.`admins` (`id`)
+    REFERENCES `unaux_23161334_db_video`.`admins` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    ON UPDATE NO ACTION);
 
 
 
 
 -- -----------------------------------------------------
--- Table `db_makev`.`admin_images`
+-- Table `unaux_23161334_db_video`.`admin_images`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `db_makev`.`admin_images` ;
 
-CREATE TABLE IF NOT EXISTS `db_makev`.`admin_images` (
+
+CREATE TABLE IF NOT EXISTS `unaux_23161334_db_video`.`admin_images` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `path` VARCHAR(255) NULL,
   `admin_folders_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_admin_images_admin_folders1`
     FOREIGN KEY (`admin_folders_id`)
-    REFERENCES `db_makev`.`admin_folders` (`id`)
+    REFERENCES `unaux_23161334_db_video`.`admin_folders` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    ON UPDATE NO ACTION);
 
 
 
 
 -- -----------------------------------------------------
--- Table `db_makev`.`admin_videos`
+-- Table `unaux_23161334_db_video`.`admin_videos`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `db_makev`.`admin_videos` ;
 
-CREATE TABLE IF NOT EXISTS `db_makev`.`admin_videos` (
+
+CREATE TABLE IF NOT EXISTS `unaux_23161334_db_video`.`admin_videos` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `path` VARCHAR(255) NULL,
   `admin_folders_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_admin_videos_admin_folders1`
     FOREIGN KEY (`admin_folders_id`)
-    REFERENCES `db_makev`.`admin_folders` (`id`)
+    REFERENCES `unaux_23161334_db_video`.`admin_folders` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    ON UPDATE NO ACTION);
 
 
 
 
 -- -----------------------------------------------------
--- Table `db_makev`.`admin_musics`
+-- Table `unaux_23161334_db_video`.`admin_musics`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `db_makev`.`admin_musics` ;
 
-CREATE TABLE IF NOT EXISTS `db_makev`.`admin_musics` (
+
+CREATE TABLE IF NOT EXISTS `unaux_23161334_db_video`.`admin_musics` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `path` VARCHAR(255) NULL,
   `admin_folders_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_admin_musics_admin_folders1`
     FOREIGN KEY (`admin_folders_id`)
-    REFERENCES `db_makev`.`admin_folders` (`id`)
+    REFERENCES `unaux_23161334_db_video`.`admin_folders` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    ON UPDATE NO ACTION);
 
 
 
 
 -- -----------------------------------------------------
--- Table `db_makev`.`clients`
+-- Table `unaux_23161334_db_video`.`clients`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `db_makev`.`clients` ;
 
-CREATE TABLE IF NOT EXISTS `db_makev`.`clients` (
+
+CREATE TABLE IF NOT EXISTS `unaux_23161334_db_video`.`clients` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
   `users_id` INT NOT NULL,
@@ -147,130 +135,122 @@ CREATE TABLE IF NOT EXISTS `db_makev`.`clients` (
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_admins_users10`
     FOREIGN KEY (`users_id`)
-    REFERENCES `db_makev`.`users` (`id`)
+    REFERENCES `unaux_23161334_db_video`.`users` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    ON UPDATE NO ACTION);
 
 
 
 
 -- -----------------------------------------------------
--- Table `db_makev`.`client_folders`
+-- Table `unaux_23161334_db_video`.`client_folders`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `db_makev`.`client_folders` ;
 
-CREATE TABLE IF NOT EXISTS `db_makev`.`client_folders` (
+
+CREATE TABLE IF NOT EXISTS `unaux_23161334_db_video`.`client_folders` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `clients_id` INT NOT NULL,
   `title` VARCHAR(45) NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_client_folders_clients1`
     FOREIGN KEY (`clients_id`)
-    REFERENCES `db_makev`.`clients` (`id`)
+    REFERENCES `unaux_23161334_db_video`.`clients` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    ON UPDATE NO ACTION);
 
 
 
 
 -- -----------------------------------------------------
--- Table `db_makev`.`client_musics`
+-- Table `unaux_23161334_db_video`.`client_musics`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `db_makev`.`client_musics` ;
 
-CREATE TABLE IF NOT EXISTS `db_makev`.`client_musics` (
+
+CREATE TABLE IF NOT EXISTS `unaux_23161334_db_video`.`client_musics` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `path` VARCHAR(255) NULL,
   `client_folders_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_client_musics_client_folders1`
     FOREIGN KEY (`client_folders_id`)
-    REFERENCES `db_makev`.`client_folders` (`id`)
+    REFERENCES `unaux_23161334_db_video`.`client_folders` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    ON UPDATE NO ACTION);
 
 
 
 
 -- -----------------------------------------------------
--- Table `db_makev`.`client_videos`
+-- Table `unaux_23161334_db_video`.`client_videos`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `db_makev`.`client_videos` ;
 
-CREATE TABLE IF NOT EXISTS `db_makev`.`client_videos` (
+
+CREATE TABLE IF NOT EXISTS `unaux_23161334_db_video`.`client_videos` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `path` VARCHAR(255) NULL,
   `client_folders_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_client_videos_client_folders1`
     FOREIGN KEY (`client_folders_id`)
-    REFERENCES `db_makev`.`client_folders` (`id`)
+    REFERENCES `unaux_23161334_db_video`.`client_folders` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    ON UPDATE NO ACTION);
 
 
 
 
 -- -----------------------------------------------------
--- Table `db_makev`.`client_images`
+-- Table `unaux_23161334_db_video`.`client_images`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `db_makev`.`client_images` ;
 
-CREATE TABLE IF NOT EXISTS `db_makev`.`client_images` (
+
+CREATE TABLE IF NOT EXISTS `unaux_23161334_db_video`.`client_images` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `path` VARCHAR(255) NULL,
   `client_folders_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_client_images_client_folders1`
     FOREIGN KEY (`client_folders_id`)
-    REFERENCES `db_makev`.`client_folders` (`id`)
+    REFERENCES `unaux_23161334_db_video`.`client_folders` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
+    ON UPDATE NO ACTION);
 
 
 
 -- -----------------------------------------------------
--- Table `db_makev`.`client_results`
+-- Table `unaux_23161334_db_video`.`client_results`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `db_makev`.`client_results` ;
 
-CREATE TABLE IF NOT EXISTS `db_makev`.`client_results` (
+
+CREATE TABLE IF NOT EXISTS `unaux_23161334_db_video`.`client_results` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `path` VARCHAR(255) NULL,
   `clients_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_client_results_clients1`
     FOREIGN KEY (`clients_id`)
-    REFERENCES `db_makev`.`clients` (`id`)
+    REFERENCES `unaux_23161334_db_video`.`clients` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    ON UPDATE NO ACTION);
 
 
 
 
 -- -----------------------------------------------------
--- Table `db_makev`.`admin_results`
+-- Table `unaux_23161334_db_video`.`admin_results`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `db_makev`.`admin_results` ;
 
-CREATE TABLE IF NOT EXISTS `db_makev`.`admin_results` (
+
+CREATE TABLE IF NOT EXISTS `unaux_23161334_db_video`.`admin_results` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `path` VARCHAR(255) NULL,
   `admins_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_admin_results_admins1`
     FOREIGN KEY (`admins_id`)
-    REFERENCES `db_makev`.`admins` (`id`)
+    REFERENCES `unaux_23161334_db_video`.`admins` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    ON UPDATE NO ACTION);
 
 
 

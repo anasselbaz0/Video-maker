@@ -149,7 +149,11 @@ class UsersController extends AppController
 
             if ($user) {
                 $this->Auth->setUser($user);
-                return $this->redirect(['controller'=>'clients','action'=>'profil']);
+                // debug($user);die();
+                if ($user->type == 'client') {
+                    return $this->redirect(['controller'=>'clients','action'=>'profil']);
+                } else return $this->redirect(['controller'=>'admins','action'=>'index']);
+                
             }
             $this->Flash->error('Votre username ou mot de passe est incorrect.');
         }
